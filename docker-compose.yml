@@ -1,0 +1,26 @@
+services:
+        app:
+                image: challenge-dockernode
+                build:
+                        context: .
+                        dockerfile: ./Dockerfile.node
+                container_name: challenge-nodeapp
+                entrypoint: node index.js
+                expose:
+                        - "3000"
+                networks:
+                        - appnet
+        reverse_proxy:
+                image: challenge-dockerproxy
+                build: 
+                        context: .
+                        dockerfile: ./Dockerfile.nginx
+                container_name: challenge-reverseproxy
+                ports:
+                        - "8080:8080"
+                networks:
+                        - appnet
+
+networks:
+        appnet:
+                driver: bridge

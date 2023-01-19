@@ -1,0 +1,10 @@
+FROM nginx:alpine
+
+ENV PORT=8080 \
+    APP_PORT=3000
+
+WORKDIR /etc/nginx
+
+RUN echo -e "events {}\nhttp {\n  server {\n    listen $PORT;\n\n    location / {\n      proxy_pass http://app:$APP_PORT;\n    }\n  }\n}" > nginx.conf
+
+EXPOSE $PORT
