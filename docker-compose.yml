@@ -1,15 +1,19 @@
 services:
         app:
-                image: challenge-dockernode
+                image: challenge-dockerapp
                 build:
                         context: .
                         dockerfile: ./Dockerfile.node
-                container_name: challenge-nodeapp
+                container_name: challenge-app
                 entrypoint: node index.js
                 expose:
                         - "3000"
                 networks:
-                        - appnet
+                        - appproxynet
+                        - appdbnet
+                restart: always
+                depends_on:
+                        - db
         reverse_proxy:
                 image: challenge-dockerproxy
                 build: 
@@ -19,8 +23,20 @@ services:
                 ports:
                         - "8080:8080"
                 networks:
-                        - appnet
-
+                        - appproxynet
+                restart: always
+        db:
+                image: mysql
+                container_name: challenge-db
+                expose:
+                        - "3306"                       
+                networks:
+                        - appdbnet
+                env_file:
+                        - db/db.env
+                restart: always
 networks:
-        appnet:
+        appproxynet:
+                driver: bridge
+        appdbnet:
                 driver: bridge

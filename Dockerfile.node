@@ -1,10 +1,8 @@
 FROM node:lts-alpine
 
-ENV PORT=3000
-
 WORKDIR /app
 
-RUN npm init -y && npm i express
-RUN echo -e "const express = require('express');\nconst app = express();\nconst port = $PORT;\n\napp.get('/', (req, res) => { res.send('<h1>Full Cycle Rocks!</h1>') });\n\napp.listen(port);" > index.js
+RUN npm init esnext -y && npm install express mysql2
+COPY ./app .
 
-EXPOSE $PORT
+EXPOSE 3000
