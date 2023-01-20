@@ -21,3 +21,10 @@ Suba tudo em um repositório e faça a entrega.
 - [X] Adicionar rota para listar as pessoas cadastradas no banco
 - [X] Adicionar rota para cadastrar pessoas dinamicamente no banco
 - [X] Subir o container do node somente apos o mysql estar on
+
+# Instrucoes
+Apos realizado o clone do repositorio, rode o seguinte comando:
+
+`$ cp db/db.env.example db/db.env`
+
+Depois disso, basta adicionar os valores as variaveis presentes no arquivo **db.env**, e rodar o comando: `$ docker compose up -d`
