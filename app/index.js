@@ -15,6 +15,7 @@ app.get("/:name", async (req, res) => {
 
       res.send(`
       <h1>${name} foi adicionado com sucesso à lista de pessoas cadastradas!</h1>
+      <h3><a href="/">Voltar</a></h3>
     `);
     } catch (err) {
       res.send(`

@@ -5,7 +5,7 @@ services:
                         context: .
                         dockerfile: ./Dockerfile.node
                 container_name: challenge-app
-                entrypoint: node index.js
+                entrypoint: dockerize -wait tcp://db:3306 node index.js
                 expose:
                         - "3000"
                 networks:
@@ -29,7 +29,7 @@ services:
                 image: mysql
                 container_name: challenge-db
                 expose:
-                        - "3306"                       
+                        - "3306"
                 networks:
                         - appdbnet
                 env_file:
