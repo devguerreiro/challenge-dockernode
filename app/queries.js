@@ -7,32 +7,35 @@ const connection = mysql.createConnection({
   database: "app",
 });
 
-export function setup() {
-  try {
-    connection.connect();
+export async function setup() {
+  return new Promise(function (resolve, reject) {
+    try {
+      connection.connect();
 
-    connection.query(
-      "CREATE TABLE IF NOT EXISTS People(id INT NOT NULL AUTO_INCREMENT, name VARCHAR(255) NOT NULL, PRIMARY KEY (id));"
-    );
+      connection.query(
+        "CREATE TABLE IF NOT EXISTS People(id INT NOT NULL AUTO_INCREMENT, name VARCHAR(255) NOT NULL, PRIMARY KEY (id));"
+      );
 
-    console.log("Setup realizado com sucesso!");
-  } catch (err) {
-    console.warn("Ocorreu algum erro ao realizar o setup");
-  }
+      console.log("Setup realizado com sucesso!");
+      resolve();
+    } catch (err) {
+      console.warn("Ocorreu algum erro ao realizar o setup");
+      reject();
+    }
+  });
 }
 
-export function createPerson(name) {
-  connection.query(
-    "INSERT INTO People SET name=?",
-    name,
-    function (err, results) {
+export async function createPerson(name) {
+  return new Promise(function (resolve) {
+    connection.query("INSERT INTO People SET name=?", name, function (err) {
       if (err) {
         console.log(err);
       } else {
-        console.log("INSERT realizado com sucesso", results);
+        console.log(`INSERT realizado com sucesso: ${name}`);
+        resolve();
       }
-    }
-  );
+    });
+  });
 }
 
 export async function getPeople() {

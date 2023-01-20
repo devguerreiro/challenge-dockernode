@@ -7,12 +7,11 @@ const port = 3000;
 
 let setupAlreadyDone = false;
 
-app.get("/:name", (req, res) => {
+app.get("/:name", async (req, res) => {
   const name = req.params.name;
   if (name !== "favicon.ico") {
-    console.log(name !== "favicon.ico", name, "favicon.ico");
     try {
-      createPerson(name);
+      await createPerson(name);
 
       res.send(`
       <h1>${name} foi adicionado com sucesso à lista de pessoas cadastradas!</h1>
@@ -27,7 +26,7 @@ app.get("/:name", (req, res) => {
 
 app.get("/", async (req, res) => {
   if (!setupAlreadyDone) {
-    setup();
+    await setup();
     setupAlreadyDone = true;
   }
 
@@ -46,7 +45,7 @@ app.get("/", async (req, res) => {
   } else {
     res.send(`
       <h1>Full Cycle Rocks!</h1>
-      <h3>Parece que voce nao cadastrou ninguem ainda... experimente acessar "/_nome_"</h3>
+      <h3>Parece que voce nao cadastrou ninguem ainda... experimente acessar "/algum_nome"</h3>
     `);
   }
 });
