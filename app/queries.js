@@ -3,8 +3,8 @@ import mysql from "mysql2";
 const connection = mysql.createConnection({
   host: "db",
   user: "root",
-  password: "dbpass",
-  database: "app",
+  password: process.env.MYSQL_ROOT_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
 });
 
 export async function setup() {

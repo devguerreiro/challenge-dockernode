@@ -11,6 +11,8 @@ services:
                 networks:
                         - appproxynet
                         - appdbnet
+                env_file:
+                        - db/db.env
                 restart: always
                 depends_on:
                         - db
