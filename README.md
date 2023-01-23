@@ -27,4 +27,6 @@ Apos realizado o clone do repositorio, rode o seguinte comando:
 
 `$ cp db/db.env.example db/db.env`
 
-Depois disso, basta adicionar os valores as variaveis presentes no arquivo **db.env**, e rodar o comando: `$ docker compose up -d`
+Depois disso, basta preencher as variaveis presentes no arquivo **db.env** com algum valor e rodar o comando: 
+
+`$ docker compose up -d`
